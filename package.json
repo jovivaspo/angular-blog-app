@@ -3,21 +3,32 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "ng:build:dev": "ng build --configuration=development",
+    "ng:build:prod": "rimraf ./dist && ng build --configuration=production",
+    "ng:build-serve:prod": "rimraf ./dist && ng build --configuration=production && npx http-server -p 8080 -c-1 dist",
+    "ng:serve:dev": "ng serve --open",
+    "ng:serve:test": "ng serve --configuration='test-local' --open",
+    "ng:serve:prod": "npx http-server -p 8080 --cors -c-1 dist",
+    "test": "ng test",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"src/**/*.html\""
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.1.0",
+    "@angular/cdk": "^16.2.13",
     "@angular/common": "^16.1.0",
     "@angular/compiler": "^16.1.0",
     "@angular/core": "^16.1.0",
     "@angular/forms": "^16.1.0",
+    "@angular/material": "^16.2.13",
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
+    "@angular/service-worker": "^16.1.0",
+    "@auth0/angular-jwt": "^5.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -33,6 +44,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "rimraf": "^5.0.5",
     "typescript": "~5.1.3"
   }
 }

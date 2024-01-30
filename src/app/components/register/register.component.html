@@ -1,0 +1,88 @@
+<h1>Registro de usuario</h1>
+<form [formGroup]="formRegister" (ngSubmit)="onSubmit(formRegister)">
+  <div class="container">
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Nombre"
+        data-test-id="nameField"
+        type="text"
+      />
+      <mat-error *ngIf="nameField?.hasError('required')"
+        >Por favor, escribe tu nombre</mat-error
+      >
+      <mat-error *ngIf="nameField?.hasError('minlength')"
+        >Por favor, introduce un nombre más corto</mat-error
+      >
+      <mat-error *ngIf="nameField?.hasError('maxlength')"
+        >Por favor, introduce un nombre más largo</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="email"
+        placeholder="Email"
+        data-test-id="emailField"
+        type="email"
+      />
+      <mat-error *ngIf="emailField?.hasError('required')"
+        >Por favor, escribe un correo</mat-error
+      >
+      <mat-error *ngIf="emailField?.hasError('email')"
+        >Por favor, introduce un correo válido</mat-error
+      >
+      <mat-error *ngIf="emailField?.hasError('userExists')"
+        >Correo en uso</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="password"
+        placeholder="Contraseña"
+        data-test-id="passwordField"
+        type="password"
+      />
+      <mat-error *ngIf="passwordField?.hasError('required')"
+        >Por favor, escribe una contraseña</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="confirmPassword"
+        placeholder="Confirmar contraseña"
+        data-test-id="confirmPasswordField"
+        type="password"
+      />
+      <mat-error *ngIf="confirmPasswordField?.hasError('required')"
+        >Por favor, confirma tu contraseña</mat-error
+      >
+      <mat-hint
+        class="error"
+        *ngIf="
+          formRegister.hasError('passwordsMatch') &&
+          passwordField?.valid &&
+          confirmPasswordField?.valid
+        "
+      >
+        Las contraseñas deben ser iguales.
+      </mat-hint>
+    </mat-form-field>
+    <div>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="formRegister.invalid"
+      >
+        Registrar
+      </button>
+    </div>
+  </div>
+</form>
