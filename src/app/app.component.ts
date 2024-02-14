@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -26,13 +27,31 @@ export class AppComponent {
       description: 'Users',
       link: 'users',
     },
+    {
+      title: 'LogOut',
+      description: 'Logout',
+      link: 'logout',
+    },
+    {
+      title: 'Update Profile',
+      description: 'Update Profile',
+      link: 'update-profile',
+    },
   ];
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService
+  ) {
     console.log('environment', environment.CONTROL);
   }
 
-  navigateTo(link: string) {
-    this.router.navigate(['../' + link]);
+  navigateTo(value: string) {
+    if (value !== 'logout') {
+      this.router.navigate(['/' + value]);
+      return;
+    }
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 }
